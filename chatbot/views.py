@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Chatting, UserGroup
 
-
 @login_required
 def chat(request):
     if request.method == 'POST':
@@ -18,7 +17,7 @@ def chat(request):
 
     user_group = UserGroup.objects.filter(user=request.user).first()
     all_grouped_user = UserGroup.objects.filter(group_name=user_group.group_name)
-    list_of_group_user = [x.user for x in all_grouped_user]
+    list_of_group_user = [x.user.username for x in all_grouped_user]  # Changed to .username
     queryset = Chatting.objects.filter(name__in=list_of_group_user).order_by('-created')
     response_text = queryset.filter(group=user_group.group_name)
     return render(request, "chat.html", context={'response_text': response_text, 'group_name': user_group.group_name})
@@ -28,7 +27,7 @@ def chat(request):
 def chat_messages(request):
     user_group = UserGroup.objects.filter(user=request.user).first()
     all_grouped_user = UserGroup.objects.filter(group_name=user_group.group_name)
-    list_of_group_user = [x.user for x in all_grouped_user]
+    list_of_group_user = [x.user.username for x in all_grouped_user]  # Changed to .username
     queryset = Chatting.objects.filter(name__in=list_of_group_user).order_by('-created')
     response_text = list(queryset.filter(group=user_group.group_name).values('name', 'message', 'image', 'created'))
 
