@@ -1,143 +1,139 @@
 {% load static %}
 <!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>No Internet Zone</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="{% static 'admin/css/bootstrap.min.css' %}">
-	<script src="{% static 'admin/js/bootstrap.bundle.min.js' %}"></script>
+    <title>No Internet Zone</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'admin/css/bootstrap.min.css' %}">
+    <script src="{% static 'admin/js/bootstrap.bundle.min.js' %}"></script>
     <link rel="icon" type="image/x-icon" href="{% static 'imran.ico' %}">
     <meta property="og:title" content="No Internet Solution | Imran Nazir Emon">
     <meta property="og:image" content="{% static 'imran.png' %}">
-    <script>
-        setInterval(() => {
-            document.location.replace('{% url 'chat' %}')},
-            25000
-        );
-    </script>
-
     <style>
         body {
-          background-color: #e0ffeb;
+            background-color: #e0ffeb;
         }
         h2 {
-          text-align: center;
-          color: #333;
+            text-align: center;
+            color: #333;
         }
-
         .card {
-          height: 1000px;
-          overflow-y: scroll;
-          scroll-behavior: smooth;
-          scroll-padding: 5px;
+            height: 1000px;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+            scroll-padding: 5px;
         }
-
         .card-body {
-          height: 100%;
+            height: 100%;
         }
-
         #chat-area {
-          height: 100%;
-          overflow-y: scroll;
-          {#display: flex;#}
-          flex-direction: column;
-          justify-content: flex-end;
+            height: 100%;
+            overflow-y: scroll;
+            flex-direction: column;
+            justify-content: flex-end;
         }
         #chat-form {
-          margin-bottom: 10px;
+            margin-bottom: 10px;
         }
         .navbar-brand img {
-          margin-right: 10px;
+            margin-right: 10px;
         }
-
         .navbar-nav .nav-item .nav-link {
-          color: #333;
-          font-weight: 600;
+            color: #333;
+            font-weight: 600;
         }
-
         .navbar-nav .nav-item .nav-link:hover {
-          color: #666;
+            color: #666;
         }
-  </style>
+    </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" href="#">
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">
         <img src="{% static 'imran.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
         No Internet Zone
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'chat' %}">No Internet Zone</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'chat' %}">No Internet Zone</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+            </li>
         </ul>
-      </div>
-    </nav>
+    </div>
+</nav>
 
-
-
-
-	<div class="container">
+<div class="container">
     <h1 class="text-center">No Internet Zone</h1>
-        <h6 class="text-center mt-3">Hi {{ request.user | capfirst}}, <a style="font-size: medium" href="{% url 'account_logout' %}">Tap here to Logout</a></h6>
+    <h6 class="text-center mt-3">Hi {{ request.user | capfirst}}, <a style="font-size: medium" href="{% url 'account_logout' %}">Tap here to Logout</a></h6>
     <br><br>
     <p style="font-size: small; text-align: center">Updates:</p>
-    <marque style="font-size: small">Chat time has been added. Multiple same chat and empty message is now ignored. Now refresh time increase to 25 second. Design has some minor fix. Now user can able to send images.</marque>
-
+    <marquee style="font-size: small">Chat time has been added. Multiple same chat and empty message is now ignored. Now refresh time increase to 25 second. Design has some minor fix. Now user can able to send images.</marquee>
     <br>
-        <form action="{% url 'chat' %}" method="post">
-            {% csrf_token %}
-
-            <div class="pt-4 pb-4">
-                <label for="exampleFormControlInput1" class="form-label"></label>
-                <input type="text" class="form-control" name="message" id="message"
-                       placeholder="Your message" required/>
-            </div>
-             <div class="">
-                <label for="exampleFormControlInput1" class="form-label"></label>
-                <input type="file" class="form-control" name="files" accept="image/*"
-                       placeholder="Image"/>
-            </div>
-
-            <div class="pt-4 pb-4">
-                <button class="btn btn-primary" type="submit" value="Send Message">
-                    Send Massage
-                </button>
-            </div>
-
-        </form>
-
-         <div class="card mb-auto">
-			<div class="card-body" id="chat-area">
-                <div class="row">
-                    <div class="col-md-12">
-                        {% for item in response_text %}
-                            <p style="text-align: end"><i style="text-align: end; font-size: small">[{{ item.created}}]</i></p>
-                            <p style="text-align: start">
-                                <strong style="text-align: start"> {{ item.name.capitalize }}: </strong> {{ item.message }}
-                                {% if item.image %}
-                                    <img class="card align-items-center" style="height: 200px; width: 200px" src="{{ request.url }}/media/images/{{ item.image }}">
-                                {% endif %}
-                            </p>
-                        {% endfor %}
-                    </div>
+    <form action="{% url 'chat' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="pt-4 pb-4">
+            <input type="text" class="form-control" name="message" id="message" placeholder="Your message" required/>
+        </div>
+        <div class="">
+            <input type="file" class="form-control" name="files" accept="image/*" placeholder="Image"/>
+        </div>
+        <div class="pt-4 pb-4">
+            <button class="btn btn-primary" type="submit" value="Send Message">Send Message</button>
+        </div>
+    </form>
+    <div class="card mb-auto">
+        <div class="card-body" id="chat-area">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for item in response_text %}
+                        <p style="text-align: end"><i style="text-align: end; font-size: small">[{{ item.created }}]</i></p>
+                        <p style="text-align: start">
+                            <strong style="text-align: start">{{ item.name.capitalize }}: </strong>{{ item.message }}
+                            {% if item.image %}
+                                <img class="card align-items-center" style="height: 200px; width: 200px" src="{{ request.url }}/media/images/{{ item.image }}">
+                            {% endif %}
+                        </p>
+                    {% endfor %}
                 </div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <span class="text-muted">©2024 <a href="https://emon.com.bd"> Imran Nazir Emon</a>. All rights reserved. This project is made with Love.</span>
+    </div>
+</footer>
 
-  <footer class="footer mt-auto py-3">
-      <div class="container">
-          <span class="text-muted">©2024 <a href="https://emon.com.bd"> Imran Nazir Emon</a>. All rights reserved. This project is made with Love.</span>
-      </div>
-    </footer>
+<script>
+    function fetchChatMessages() {
+        fetch("{% url 'chat_messages' %}")
+            .then(response => response.json())
+            .then(data => {
+                let chatArea = document.getElementById('chat-area');
+                chatArea.innerHTML = '';
+                data.forEach(item => {
+                    let messageElement = document.createElement('div');
+                    messageElement.innerHTML = `
+                        <p style="text-align: end"><i style="text-align: end; font-size: small">[${item.created}]</i></p>
+                        <p style="text-align: start">
+                            <strong style="text-align: start">${item.name}: </strong>${item.message}
+                            ${item.image ? `<img class="card align-items-center" style="height: 200px; width: 200px" src="${item.image}">` : ''}
+                        </p>`;
+                    chatArea.appendChild(messageElement);
+                });
+            });
+    }
+
+    setInterval(fetchChatMessages, 25000);
+    document.addEventListener('DOMContentLoaded', fetchChatMessages);
+</script>
 </body>
 </html>
