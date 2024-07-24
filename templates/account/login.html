@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style_css.css' %}">
+
+	<script src="{% static 'admin/js/bootstrap.bundle.min.js' %}"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container overflow-hidden mt-5 mb-3">
+        <div class="row gx-5 gy-5 mb-5">
+            <div class="col-12 col-md-12 col-lg-6 col-xl-6 pt-2">
+                <h1 class="h1" style="text-align: center;">Welcome to No Internet Zone </h1>
+                <h3 class="h3" style="text-align: center;">Login </h3>
+
+                <div class="form">
+                    <form class="login" method="POST" action="/accounts/login/">
+                        {% csrf_token %}
+
+                        <div class="form-control form-label">
+                            <label for="exampleFormControlInput1" class="form-label"></label>
+                            <input type="text" name="login" placeholder="Username" autocomplete="username" maxlength="150" required id="id_login" class="form-control"/>
+                        </div>
+
+                        <div class="form-control form-label">
+                            <label for="exampleFormControlInput1" class="form-label"></label>
+                            <input class="form-control"type="password" name="password" placeholder="Password" autocomplete="current-password" required id="id_password">
+                        </div>
+
+                        <div class="form-control form-label">
+                            <button class="btn btn-color mt-3 message_btn" type="submit">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<footer class="footer_contact">
+      <div class="blockquote-footer">
+          <span class="text-muted">©2024 <a href="https://emon.com.bd"> Imran Nazir Emon</a>.</span>
+      </div>
+    </footer>
+</body>
+
+</html>
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Sign In</title>#}
+{#    <!-- Tailwind CSS CDN for styling -->#}
+{#    <link href="{% static 'css/style.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">#}
+{#</head>#}
+{#<body class="bg-gray-100 flex items-center justify-center min-h-screen">#}
+{##}
+{#<div class="w-full max-w-xs">#}
+{#    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">#}
+{##}
+{##}
+{##}
+{#        <!-- Login Form -->#}
+{#        <form class="login" method="POST" action="/accounts/login/">#}
+{#            <input type="hidden" name="csrfmiddlewaretoken" value="HYqgEIlFl0xHoGowkvTZCniEhb7hqMpXzOcGbrzOuc2sPWA2CmpqDU6HK1MuWSuD">#}
+{#            {% csrf_token %}#}
+{#            <div class="mb-4">#}
+{#                <label for="id_login" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>#}
+{#                <input type="text" name="login" placeholder="Username" autocomplete="username" maxlength="150" required id="id_login" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">#}
+{#            </div>#}
+{#            <div class="mb-6">#}
+{#                <label for="id_password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>#}
+{#                <input type="password" name="password" placeholder="Password" autocomplete="current-password" required id="id_password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">#}
+{#            </div>#}
+{#            <div class="flex items-center justify-between mb-6">#}
+{#                <label for="id_remember" class="inline-flex items-center">#}
+{#                    <input type="checkbox" name="remember" id="id_remember" class="form-checkbox">#}
+{#                    <span class="ml-2 text-sm text-gray-600">Remember Me</span>#}
+{#                </label>#}
+{##}
+{#            </div>#}
+{#            <div class="flex items-center justify-between">#}
+{#                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Sign In</button>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#</body>#}
+{#</html>#}
